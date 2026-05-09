@@ -72,12 +72,35 @@ Nosso painel de visualização destaca descobertas que orientam a tomada de deci
 
 ## 5. Como Executar o Projeto
 
-- Clone o repositório.
-- Abra o arquivo `.ipynb` no **Google Colab** ou **Jupyter Notebook**.
+Você pode explorar o SmartConsumer Insight Engine de duas maneiras:
 
-Certifique-se de ter as bibliotecas `pandas`, `sqlite3`, `scikit-learn` e `plotly` instaladas.
+**1. Execução Online (Google Colab)**
 
-O notebook executa o fluxo completo, da extração ao dashboard.
+Esta é a forma mais rápida de visualizar o projeto funcionando sem configurar nada em sua máquina.
+
+- Acesse o notebook através do link [Colab Notebook](https://colab.research.google.com/drive/1RbyDN91t44Ow2r3Dr7vuHsMc89W3dcNn?usp=drive_link).
+- Vá em - Vá em **Arquivo** > **Salvar uma cópia no Drive**.
+Execute as células sequencialmente para ver o pipeline de dados em ação.
+
+**2. Execução Local (Sua Máquina)**
+
+Para rodar o projeto localmente, siga estes passos:
+- **Clone o repositório:**
+
+`git clone https://github.com/mydevslab/smartConsumer-insight-engine.git`
+
+- **Instale as dependências:**
+
+Certifique-se de ter o Python instalado e rode o comando abaixo para instalar as bibliotecas necessárias (`pandas`, `scikit-learn`, `plotly` e `sqlite3`):
+`pip install -r requirements.txt`
+
+- **Abra o Notebook:**
+
+Navegue até a pasta `/notebooks` e abra o arquivo `.ipynb` usando o Jupyter Notebook ou VS Code.
+
+- **Base de Dados:**
+
+O projeto utiliza o dataset do Kaggle. Caso o download automático não seja iniciado pelo script, baixe-o [neste link](https://www.kaggle.com/datasets/ashishpatel26/spending-patterns-detailed) e coloque-o na raiz do projeto.
 
 ## 6. Integrantes do Esquadrão
 
