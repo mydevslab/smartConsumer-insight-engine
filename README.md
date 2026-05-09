@@ -35,7 +35,7 @@ Nossa solução segue um pipeline estruturado para garantir a integridade dos in
       E
       end
 
-      style G fill:#f9f,stroke:#333,color:#333;stroke-width:4px      
+      style G fill:#CCCCCC,stroke:#333,color:#333,stroke-width:4px      
       
 ```
 
