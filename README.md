@@ -1,0 +1,105 @@
+# 🚀 SmartConsumer Insight Engine
+
+**Subtema 2:** Consumo Inteligente | *Hackathon Elas+ Tech - Ada Tech*
+
+## 1. Visão Geral e Proposta de Valor
+
+O SmartConsumer Insight Engine é uma solução de dados de ponta a ponta (E2E) desenvolvida para ajudar consumidores individuais a otimizar sua saúde financeira. Através da análise de padrões de consumo, identificamos "vilões" do orçamento e prevemos gastos futuros para gerar recomendações práticas de economia.
+
+- **Público-alvo:** Usuários finais que buscam inteligência financeira e controle de gastos.
+- **Problema:** Dificuldade em identificar padrões de gastos supérfluos e prever o fechamento da fatura mensal.
+
+## 2. Arquitetura da Solução
+
+Nossa solução segue um pipeline estruturado para garantir a integridade dos insights:
+
+- **Ingestão:** Carga do dataset spending_patterns_detailed.csv (Kaggle).
+- **Camada de Dados (SQL):** Criação de banco SQLite e extração de faturamento por categoria.
+- **Processamento Estatístico:** Aplicação de estatística descritiva e probabilidade condicional para validar comportamentos de consumo.
+- **Inteligência (Machine Learning):** Modelo preditivo para estimativa de gastos futuros.
+- **Visualização (Storytelling):** Dashboard interativo com foco em recomendações estratégicas.
+
+```mermaid
+  graph LR
+      A[(Kaggle Dataset)] --> B[Python / Pandas]
+      B --> C{SQLite Database}
+      C -->| Queries SQL | D[Estatística & Probabilidade]
+      D --> E[Machine Learning Model]
+      E --> F[Dashboard Interativo]
+      F --> G[Recomendações de Economia]
+
+      subgraph "Processamento & Inteligência"
+      B
+      C
+      D
+      E
+      end
+
+      style G fill:#f9f,stroke:#333,color:#333;stroke-width:4px      
+      
+```
+
+## 3. Execução Técnica
+
+### 🛠 SQL na Prática
+
+Demonstramos o uso de SQL para extrair insights estruturados diretamente do banco de dados, focando em:
+
+- Cálculo da participação percentual de cada categoria no faturamento total.
+- Segmentação de gastos por método de pagamento para identificar o impacto do crédito.
+
+### 📊 Estatística e Probabilidade
+
+A análise não é baseada em suposições, mas em fatos estatísticos:
+
+- **Probabilidade Condicional:** "Qual a chance de uma compra ser via Mobile App dado que a categoria é Shopping?".
+- **Métricas Descritivas:** Identificação da moda (itens mais frequentes) e dispersão dos gastos.
+
+### 🤖 Machine Learning
+
+Construímos um modelo de Regressão Linear (ou Random Forest/XGBoost) para prever o Total_Spent.
+
+- **Features:** Quantidade e Preço Unitário.
+- **Objetivo:** Antecipar o valor da fatura mensal para evitar surpresas financeiras.
+
+## 4. Insights Estratégicos (Storytelling)
+
+Nosso painel de visualização destaca descobertas que orientam a tomada de decisão:
+
+- **O Gatilho do Crédito:** Usuários tendem a gastar mais em lazer quando utilizam cartão de crédito.
+- **Destaque de Vendas:** A alimentação representa a maior fatia do orçamento em 68% dos perfis analisados.
+- **Efeito Sazonal:** Identificação de picos de consumo em novembro (Black Friday).
+
+## 5. Como Executar o Projeto
+
+- Clone o repositório.
+- Abra o arquivo `.ipynb` no **Google Colab** ou **Jupyter Notebook**.
+
+Certifique-se de ter as bibliotecas `pandas`, `sqlite3`, `scikit-learn` e `plotly` instaladas.
+
+O notebook executa o fluxo completo, da extração ao dashboard.
+
+## 6. Integrantes do Esquadrão
+
+1. [Jéssica](https://www.linkedin.com/in/jessicalopesena/)
+2. [Juscélia](https://www.linkedin.com/in/jusceliadesouza)
+3. [Katherina](https://www.linkedin.com/in/katherina-melin-hoehne/)
+4. [Rozvania](https://www.linkedin.com/in/rozvania/)
+
+## 7. Conclusão
+
+O SmartConsumer Insight Engine é uma ferramenta poderosa para capacitar consumidores a entender e controlar seus hábitos de consumo. Através de uma abordagem baseada em dados, oferecemos insights acionáveis que podem transformar a saúde financeira dos usuários, promovendo um consumo mais consciente e inteligente.
+
+## 8. Referências
+
+Segue a lista de referências utilizadas para a construção do projeto:
+
+- [Dataset Kaggle: Spending Patterns Detailed](https://www.kaggle.com/datasets/ashishpatel26/spending-patterns-detailed)
+- [Documentação SQLite](https://www.sqlite.org/docs.html)
+- [Documentação Pandas](https://pandas.pydata.org/docs/)
+- [Documentação Scikit-Learn](https://scikit-learn.org/stable/)
+- [Documentação Plotly](https://plotly.com/python/)
+
+---
+
+**Nota:** Este projeto é uma simulação para fins educacionais e não deve ser utilizado como aconselhamento financeiro real.
