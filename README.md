@@ -1,10 +1,10 @@
 # 🚀 SmartConsumer Insight Engine
 
-**Subtema 2:** Consumo Inteligente | *Hackathon Elas+ Tech - Ada Tech*
+Projeto desenvolvido para o Hackathon Elas+ Tech - Ada Tech, sob o tema **Consumo Inteligente**. O foco é a análise de padrões de consumo, com o desafio de aplicar estatística exploratória para classificar gastos e identificar categorias dominantes. A solução inclui a construção de um modelo em Python e painéis focados em gerar recomendações de economia ou identificar produtos mais rentáveis.
 
 ## 1. Visão Geral e Proposta de Valor
 
-O SmartConsumer Insight Engine é uma solução de dados de ponta a ponta (E2E) desenvolvida para ajudar consumidores individuais a otimizar sua saúde financeira. Através da análise de padrões de consumo, identificamos "vilões" do orçamento e prevemos gastos futuros para gerar recomendações práticas de economia.
+O **SmartConsumer Insight Engine** é uma solução de dados de ponta a ponta (E2E) desenvolvida para ajudar consumidores individuais a otimizar sua saúde financeira. Através da análise de padrões de consumo, identificamos **"vilões"** do orçamento e prevemos gastos futuros para gerar recomendações práticas de economia.
 
 - **Público-alvo:** Usuários finais que buscam inteligência financeira e controle de gastos.
 - **Problema:** Dificuldade em identificar padrões de gastos supérfluos e prever o fechamento da fatura mensal.
@@ -57,7 +57,7 @@ A análise não é baseada em suposições, mas em fatos estatísticos:
 
 ### 🤖 Machine Learning
 
-Construímos um modelo de Regressão Linear (ou Random Forest/XGBoost) para prever o Total_Spent.
+Construímos um modelo de **Regressão Linear** (ou Random Forest/XGBoost) para prever o Total_Spent.
 
 - **Features:** Quantidade e Preço Unitário.
 - **Objetivo:** Antecipar o valor da fatura mensal para evitar surpresas financeiras.
@@ -72,7 +72,7 @@ Nosso painel de visualização destaca descobertas que orientam a tomada de deci
 
 ## 5. Como Executar o Projeto
 
-Você pode explorar o SmartConsumer Insight Engine de duas maneiras:
+Você pode explorar o **SmartConsumer Insight Engine** de duas maneiras:
 
 **1. Execução Online (Google Colab)**
 
@@ -91,16 +91,16 @@ Para rodar o projeto localmente, siga estes passos:
 
 - **Instale as dependências:**
 
-Certifique-se de ter o Python instalado e rode o comando abaixo para instalar as bibliotecas necessárias (`pandas`, `scikit-learn`, `plotly` e `sqlite3`):
+Certifique-se de ter o **Python** instalado e rode o comando abaixo para instalar as bibliotecas necessárias (`pandas`, `scikit-learn`, `plotly` e `sqlite3`):
 `pip install -r requirements.txt`
 
 - **Abra o Notebook:**
 
-Navegue até a pasta `/notebooks` e abra o arquivo `.ipynb` usando o Jupyter Notebook ou VS Code.
+Navegue até a pasta `/notebooks` e abra o arquivo `.ipynb` usando o **Jupyter Notebook** ou **VS Code**.
 
 - **Base de Dados:**
 
-O projeto utiliza o dataset do Kaggle. Caso o download automático não seja iniciado pelo script, baixe-o [neste link](https://www.kaggle.com/datasets/ashishpatel26/spending-patterns-detailed) e coloque-o na raiz do projeto.
+O projeto utiliza o dataset do **Kaggle**. Caso o download automático não seja iniciado pelo script, baixe-o [neste link](https://www.kaggle.com/datasets/ashishpatel26/spending-patterns-detailed) e coloque-o na raiz do projeto.
 
 ## 6. Integrantes do Esquadrão
 
@@ -111,7 +111,7 @@ O projeto utiliza o dataset do Kaggle. Caso o download automático não seja ini
 
 ## 7. Conclusão
 
-O SmartConsumer Insight Engine é uma ferramenta poderosa para capacitar consumidores a entender e controlar seus hábitos de consumo. Através de uma abordagem baseada em dados, oferecemos insights acionáveis que podem transformar a saúde financeira dos usuários, promovendo um consumo mais consciente e inteligente.
+O **SmartConsumer Insight Engine** é uma ferramenta poderosa para capacitar consumidores a entender e controlar seus hábitos de consumo. Através de uma abordagem baseada em dados, oferecemos insights acionáveis que podem transformar a saúde financeira dos usuários, promovendo um consumo mais consciente e inteligente.
 
 ## 8. Referências
 
