@@ -96,6 +96,16 @@ Desenvolvemos um protótipo funcional para que o usuário possa interagir com o 
   - Execute o comando: streamlit run app/app.py
   - O sistema abrirá automaticamente uma aba no seu navegador com a interface do projeto.
 
+A solução **SmartConsumer Insight Engine** está disponível para testes em tempo real. O deploy foi realizado via **Streamlit Cloud**, permitindo que você interaja com as predições e insights sem a necessidade de configuração local.
+
+**🔗 Link do Web App:** *https://smartconsumer.streamlit.app/*
+
+**Funcionalidades da Versão Online:**
+
+- **Upload de Dados:** Carregue arquivos CSV compatíveis para análise instantânea.
+- **Calculadora Preditiva:** Simule compras e veja a estimativa da fatura gerada pelo nosso modelo de ML.
+- **Insights SQL Dinâmicos:** Visualização imediata do ranking de categorias e gatilhos de consumo.
+
 ## 6. Como Executar o Projeto
 
 Você pode explorar o **SmartConsumer Insight Engine** de duas maneiras:
