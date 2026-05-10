@@ -2,6 +2,19 @@
 
 Projeto desenvolvido para o Hackathon Elas+ Tech - Ada Tech, sob o tema **Consumo Inteligente**. O foco é a análise de padrões de consumo, com o desafio de aplicar estatística exploratória para classificar gastos e identificar categorias dominantes. A solução inclui a construção de um modelo em Python e painéis focados em gerar recomendações de economia ou identificar produtos mais rentáveis.
 
+Índice:
+- [1. Visão Geral e Proposta de Valor](#1-visão-geral-e-proposta-de-valor)
+- [2. Arquitetura da Solução](#2-arquitetura-da-solução)
+- [3. Execução Técnica](#3-execução-técnica)
+- [4. Insights Estratégicos (Storytelling)](#4-insights-estratégicos-storytelling)
+- [5. MVP Interativo (Streamlit)](#5-mvp-interativo-streamlit)
+- [6. Como Executar o Projeto](#6-como-executar-o-projeto)
+- [7. Integrantes do Esquadrão](#7-integrantes-do-esquadrão)
+- [8. Conclusão](#8-conclusão)
+- [Referências](#referências)
+
+---
+
 ## 1. Visão Geral e Proposta de Valor
 
 O **SmartConsumer Insight Engine** é uma solução de dados de ponta a ponta (E2E) desenvolvida para ajudar consumidores individuais a otimizar sua saúde financeira. Através da análise de padrões de consumo, identificamos **"vilões"** do orçamento e prevemos gastos futuros para gerar recomendações práticas de economia.
@@ -70,7 +83,20 @@ Nosso painel de visualização destaca descobertas que orientam a tomada de deci
 - **Destaque de Vendas:** A alimentação representa a maior fatia do orçamento em 68% dos perfis analisados.
 - **Efeito Sazonal:** Identificação de picos de consumo em novembro (Black Friday).
 
-## 5. Como Executar o Projeto
+## 5. 🌐 MVP Interativo (Streamlit)
+
+Desenvolvemos um protótipo funcional para que o usuário possa interagir com o SmartConsumer Insight Engine em tempo real.
+
+**Funcionalidades**:
+
+- **Calculadora Preditiva:** Insira a quantidade e o preço de um item para prever o impacto na fatura mensal.
+- **Dashboard Dinâmico:** Visualize os "vilões do orçamento" através de gráficos interativos do Plotly.
+- **Como rodar o MVP localmente:**
+  - Navegue até a pasta do app: cd app
+  - Execute o comando: streamlit run app/app.py
+  - O sistema abrirá automaticamente uma aba no seu navegador com a interface do projeto.
+
+## 6. Como Executar o Projeto
 
 Você pode explorar o **SmartConsumer Insight Engine** de duas maneiras:
 
@@ -102,18 +128,18 @@ Navegue até a pasta `/notebooks` e abra o arquivo `.ipynb` usando o **Jupyter N
 
 O projeto utiliza o dataset do **Kaggle**. Caso o download automático não seja iniciado pelo script, baixe-o [neste link](https://www.kaggle.com/datasets/ashishpatel26/spending-patterns-detailed) e coloque-o na raiz do projeto.
 
-## 6. Integrantes do Esquadrão
+## 7. Integrantes do Esquadrão
 
 1. [Jéssica](https://www.linkedin.com/in/jessicalopesena/)
 2. [Juscélia](https://www.linkedin.com/in/jusceliadesouza)
 3. [Katherina](https://www.linkedin.com/in/katherina-melin-hoehne/)
 4. [Rozvania](https://www.linkedin.com/in/rozvania/)
 
-## 7. Conclusão
+## 8. Conclusão
 
 O **SmartConsumer Insight Engine** é uma ferramenta poderosa para capacitar consumidores a entender e controlar seus hábitos de consumo. Através de uma abordagem baseada em dados, oferecemos insights acionáveis que podem transformar a saúde financeira dos usuários, promovendo um consumo mais consciente e inteligente.
 
-## 8. Referências
+## 9. Referências
 
 Segue a lista de referências utilizadas para a construção do projeto:
 
