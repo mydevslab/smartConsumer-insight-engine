@@ -70,17 +70,17 @@ A análise não é baseada em suposições, mas em fatos estatísticos:
 
 ### 🤖 Machine Learning
 
-Construímos um modelo de **Regressão Linear** (ou Random Forest/XGBoost) para prever o Total_Spent.
+Construímos um modelo de **Regressão Linear** via Scikit-Learn para prever o gasto total de uma transação.
 
 - **Features:** Quantidade e Preço Unitário.
-- **Objetivo:** Antecipar o valor da fatura mensal para evitar surpresas financeiras.
+- **Objetivo:** Antecipar o impacto de compras no orçamento e validar a tendência de gastos baseada no histórico.
 
 ## 4. Insights Estratégicos (Storytelling)
 
 Nosso painel de visualização destaca descobertas que orientam a tomada de decisão:
 
 - **O Gatilho do Crédito:** Usuários tendem a gastar mais em lazer quando utilizam cartão de crédito.
-- **Destaque de Vendas:** A alimentação representa a maior fatia do orçamento em 68% dos perfis analisados.
+- **Destaque de Vendas:** O motor de busca compara o perfil do usuário com o benchmark de mercado (onde Alimentação representa a maior fatia em 68% dos casos).
 - **Efeito Sazonal:** Identificação de picos de consumo em novembro (Black Friday).
 
 ## 5. 🌐 MVP Interativo (Streamlit)
@@ -92,8 +92,7 @@ Desenvolvemos um protótipo funcional para que o usuário possa interagir com o 
 - **Calculadora Preditiva:** Insira a quantidade e o preço de um item para prever o impacto na fatura mensal.
 - **Dashboard Dinâmico:** Visualize os "vilões do orçamento" através de gráficos interativos do Plotly.
 - **Como rodar o MVP localmente:**
-  - Navegue até a pasta do app: cd app
-  - Execute o comando: streamlit run app/app.py
+  - Na raiz do projeto, execute: `streamlit run app/app.py`
   - O sistema abrirá automaticamente uma aba no seu navegador com a interface do projeto.
 
 A solução **SmartConsumer Insight Engine** está disponível para testes em tempo real. O deploy foi realizado via **Streamlit Cloud**, permitindo que você interaja com as predições e insights sem a necessidade de configuração local.
@@ -128,7 +127,7 @@ Para rodar o projeto localmente, siga estes passos:
 - **Instale as dependências:**
 
 Certifique-se de ter o **Python** instalado e rode o comando abaixo para instalar as bibliotecas necessárias (`pandas`, `scikit-learn`, `plotly` e `sqlite3`):
-`pip install -r requirements.txt`
+`pip install -r requirements.txt` (O projeto exige Streamlit 1.36+ para alinhamento visual dinâmico).
 
 - **Abra o Notebook:**
 
