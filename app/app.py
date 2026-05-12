@@ -227,23 +227,26 @@ def apply_chart_style(fig: go.Figure) -> go.Figure:
 # Estratégia: aceitar múltiplas convenções de nomes de coluna (inglês/português,
 # snake_case/CamelCase) para tornar o MVP robusto com datasets variados.
 COL_ALIASES = {
-    "category":         ["category", "categoria", "Category", "Categoria"],
+    "category":         ["category", "categoria", "Category", "Categoria", "tipo"],
     "payment_method":   ["payment_method", "metodo_pagamento", "Payment_Method",
-                         "PaymentMethod", "payment method"],
+                         "PaymentMethod", "payment method", "forma_pagamento"],
     "total_spent":      ["total_spent", "total_gasto", "Total_Spent", "TotalSpent",
-                         "total", "valor_total", "amount", "Amount"],
-    "quantity":         ["quantity", "quantidade", "Quantity", "Quantidade", "qty"],
+                         "total", "valor_total", "amount", "Amount", "Total Spent",
+                         "total_spent_value", "valor_pago"],
+    "quantity":         ["quantity", "quantidade", "Quantity", "Quantidade", "qty", "qtd", 
+                         "itens", "unidades", "units", "count"],
     "unit_price":       ["unit_price", "preco_unitario", "UnitPrice", "Unit_Price",
-                         "price", "Price", "preco"],
+                         "price", "Price", "preco", "Price_Per_Unit", "Price Per Unit", 
+                         "Price_per_unit", "valor_unitario"],
 }
 
 def resolve_column(df: pd.DataFrame, key: str) -> str | None:
     """Retorna o nome real da coluna no DataFrame, ou None se não encontrada."""
-    for alias in COL_ALIASES[key]:
-        if alias in df.columns:
-            return alias
+    # Limpeza profunda dos nomes das colunas para comparação
+    clean_cols = {c.strip().replace('"', '').replace("'", ""): c for c in df.columns}
+    
     # busca case-insensitive como fallback
-    lower_map = {c.lower(): c for c in df.columns}
+    lower_map = {c.lower(): original for c, original in clean_cols.items()}
     for alias in COL_ALIASES[key]:
         if alias.lower() in lower_map:
             return lower_map[alias.lower()]
@@ -258,14 +261,36 @@ def load_and_query(csv_bytes: bytes) -> tuple[pd.DataFrame, pd.DataFrame]:
     necessidade de servidor. O `@st.cache_data` garante que o processamento
     pesado ocorra apenas quando o arquivo muda (hash de bytes).
     """
-    df_raw = pd.read_csv(io.BytesIO(csv_bytes))
-    df_raw.columns = df_raw.columns.str.strip()
-
-    con = sqlite3.connect(":memory:")
-    df_raw.to_sql("spending", con, if_exists="replace", index=False)
+    # sep=None com engine='python' permite detectar automaticamente o separador (, ou ;)
+    # encoding='utf-8-sig' resolve problemas com caracteres especiais e BOM do Excel
+    df_raw = pd.read_csv(io.BytesIO(csv_bytes), sep=None, engine='python', encoding='utf-8-sig')
+    df_raw.columns = df_raw.columns.str.strip().str.replace('"', '').str.replace("'", "")
 
     col_total    = resolve_column(df_raw, "total_spent")
     col_category = resolve_column(df_raw, "category")
+    col_price    = resolve_column(df_raw, "unit_price")
+    col_qty      = resolve_column(df_raw, "quantity")
+
+    # Limpeza de dados: remove símbolos de moeda e converte para numérico
+    for col in [col_total, col_price, col_qty]:
+        if col:
+            # Força conversão para string para limpeza profunda
+            s = df_raw[col].astype(str).str.replace(r'[R\$\s]', '', regex=True)
+            
+            # Se houver vírgula, tratamos como formato BR (1.234,56)
+            # Removemos o ponto (milhar) e trocamos a vírgula por ponto (decimal)
+            has_comma = s.str.contains(',')
+            s.loc[has_comma] = s.loc[has_comma].str.replace('.', '', regex=False).str.replace(',', '.', regex=False)
+            
+            # Se não houver vírgula mas houver múltiplos pontos, removemos os de milhar
+            # Ex: 1.500.000 -> 1500000
+            multiple_dots = (~has_comma) & (s.str.count(r'\.') > 1)
+            s.loc[multiple_dots] = s.loc[multiple_dots].str.replace('.', '', regex=False)
+            
+            df_raw[col] = pd.to_numeric(s, errors='coerce')
+
+    con = sqlite3.connect(":memory:")
+    df_raw.to_sql("spending", con, if_exists="replace", index=False)
 
     if not col_total or not col_category:
         con.close()
@@ -277,7 +302,7 @@ def load_and_query(csv_bytes: bytes) -> tuple[pd.DataFrame, pd.DataFrame]:
             "{col_category}"          AS category,
             SUM("{col_total}")        AS total_spent,
             ROUND(
-                100.0 * SUM("{col_total}") / SUM(SUM("{col_total}")) OVER (),
+                100.0 * SUM("{col_total}") / (SELECT SUM("{col_total}") FROM spending),
                 2
             )                         AS pct_share
         FROM spending
@@ -306,14 +331,20 @@ def train_model(csv_bytes: bytes):
         return None, None, None
 
     df_model = df[[col_qty, col_price, col_total]].dropna()
+
+    # Validação de volume de dados para evitar erro no split
+    if len(df_model) < 5:
+        return None, 0.0, len(df_model)
+
     X = df_model[[col_qty, col_price]].values
     y = df_model[col_total].values
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2, random_state=42)
     model = LinearRegression()
     model.fit(X_train, y_train)
-    r2 = r2_score(y_test, model.predict(X_test))
-    return model, r2, (col_qty, col_price, col_total)
+    y_pred = model.predict(X_test)
+    r2 = r2_score(y_test, y_pred)
+    return model, r2, len(df_model)
 
 
 # ── Gerador de recomendações dinâmicas ────────────────────────────────────────
@@ -558,36 +589,37 @@ st.markdown('<p class="section-title">🦹 Vilão do Orçamento — Resultado da
 if df_pct.empty:
     st.warning("Não foi possível identificar as colunas 'category' e 'total_spent' no CSV.")
 else:
-    col_chart1, col_table = st.columns([3, 2])
+    col_chart1, col_table = st.columns([3, 2], vertical_alignment="center")
 
     with col_chart1:
-        # Gráfico de rosca: participação por categoria
-        fig_donut = px.pie(
+        # Gráfico de barras horizontais: Melhor legibilidade para dados desproporcionais (ex: 80% vs 1%)
+        # Ordenamos para que o 'Vilão' fique no topo.
+        fig_bar_pct = px.bar(
             df_pct,
-            names="category",
-            values="total_spent",
-            hole=0.62,
+            x="pct_share",
+            y="category",
+            orientation='h',
+            text="pct_share",
+            color="category",
             color_discrete_sequence=PLOTLY_COLORS,
-            title="Participação (%) por Categoria — Query SQL",
+            title="Participação (%) por Categoria — Resiliência de Escala",
+            labels={"pct_share": "Participação (%)", "category": "Categoria"}
         )
-        fig_donut.update_traces(
-            textposition="outside",
-            textinfo="percent+label",
-            hovertemplate="<b>%{label}</b><br>R$ %{value:,.2f}<br>%{percent}<extra></extra>",
+        fig_bar_pct.update_traces(
+            texttemplate='%{text:.1f}%', 
+            textposition='outside',
+            hovertemplate="<b>%{y}</b><br>Participação: %{x:.2f}%<extra></extra>"
         )
-        # Anotação central com o vilão
-        top_cat  = df_pct.iloc[0]["category"]
-        top_pct  = df_pct.iloc[0]["pct_share"]
-        fig_donut.add_annotation(
-            text=f"<b>{top_pct:.0f}%</b><br><span style='font-size:10px'>{top_cat}</span>",
-            x=0.5, y=0.5, showarrow=False,
-            font=dict(size=18, color="#ffffff"),
-            align="center",
+        fig_bar_pct.update_layout(
+            yaxis={'categoryorder':'total ascending'}, # Garante o maior no topo
+            showlegend=False
         )
-        apply_chart_style(fig_donut)
-        st.plotly_chart(fig_donut, use_container_width=True)
+        apply_chart_style(fig_bar_pct)
+        st.plotly_chart(fig_bar_pct, use_container_width=True)
 
     with col_table:
+        top_cat  = df_pct.iloc[0]["category"]
+        top_pct  = df_pct.iloc[0]["pct_share"]
         st.markdown("**Tabela SQL — `pct_share` por Categoria**")
         display_pct = df_pct.copy()
         display_pct["total_spent"]  = display_pct["total_spent"].map("R$ {:,.2f}".format)
@@ -596,7 +628,10 @@ else:
         st.dataframe(display_pct, use_container_width=True, hide_index=True,
                      height=min(50 + 38 * len(display_pct), 380))
 
-        # Destaque do Vilão
+        # Destaque do Vilão (Saída Dinâmica)
+        is_standard = top_cat.lower() in ["alimentação", "food", "grocery", "refeição", "alimentacao"]
+        insight_compare = "está alinhado" if is_standard else "diverge"
+
         st.markdown(f"""
         <div style="
             background: rgba(239,68,68,.15);
@@ -612,8 +647,8 @@ else:
             </div>
             <div style="color:#fca5a5; font-size:.9rem;">
                 Representa <strong>{top_pct:.1f}%</strong> do faturamento total.<br>
-                Alinhado com o insight do README: <em>"Alimentação representa a maior fatia
-                em 68% dos perfis."</em>
+                O comportamento deste dataset <strong>{insight_compare}</strong> do insight geral 
+                do projeto (Alimentação como maior fatia em 68% dos casos).
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -713,8 +748,11 @@ st.markdown('<p class="section-title">🤖 Calculadora Preditiva — Regressão 
             unsafe_allow_html=True)
 
 if model is None:
-    st.warning("Modelo não pôde ser treinado. Verifique se o CSV contém 'quantity', "
-               "'unit_price' e 'total_spent'.")
+    if not all([col_qty, col_price, col_total]):
+        st.warning("⚠️ Modelo não pôde ser treinado. Algumas colunas obrigatórias (Quantidade, Preço ou Total) não foram identificadas no CSV.")
+    else:
+        # r2_val aqui carrega o contador de linhas válidas retornado pela função train_model modificada
+        st.warning(f"⚠️ Volume de dados válidos insuficiente ({r2_val} linhas). Verifique se os valores numéricos estão no formato correto.")
 else:
     ml_left, ml_right = st.columns([2, 3])
 
