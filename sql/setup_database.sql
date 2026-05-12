@@ -1,5 +1,6 @@
 -- Criação da tabela principal de transações
--- Tabela unificada para o projeto SmartConsumer
+-- Criação da tabela principal de spending
+-- Esta tabela armazena informações detalhadas sobre as transações dos consumidores, 
 -- incluindo categorias de gastos, itens comprados, métodos de pagamento e localização.
 
 CREATE TABLE spending (
