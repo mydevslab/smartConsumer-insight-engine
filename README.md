@@ -11,6 +11,7 @@ Projeto desenvolvido para o Hackathon Elas+ Tech - Ada Tech, sob o tema **Consum
 - [6. Como Executar o Projeto](#6-como-executar-o-projeto)
 - [7. Integrantes do Esquadrão](#7-integrantes-do-esquadrão)
 - [8. Conclusão](#8-conclusão)
+- [9. Como Contribuir](#9-como-contribuir)
 - [Referências](#referências)
 
 ---
@@ -147,6 +148,31 @@ O projeto utiliza o dataset do **Kaggle**. Caso o download automático não seja
 ## 8. Conclusão
 
 O **SmartConsumer Insight Engine** é uma ferramenta poderosa para capacitar consumidores a entender e controlar seus hábitos de consumo. Através de uma abordagem baseada em dados, oferecemos insights acionáveis que podem transformar a saúde financeira dos usuários, promovendo um consumo mais consciente e inteligente.
+
+## 9. Como Contribuir
+
+Agradecemos o seu interesse em contribuir com o SmartConsumer Insight Engine! Sua colaboração é muito valiosa para aprimorar este projeto. Abaixo estão algumas diretrizes para facilitar o processo de contribuição:
+
+### Relatando Bugs ou Sugerindo Melhorias
+
+Se você encontrar um bug ou tiver uma ideia para uma nova funcionalidade, por favor, abra uma `Issue` no repositório. Ao fazer isso, siga as seguintes recomendações:
+
+- **Bugs:** Descreva o problema detalhadamente, incluindo os passos para reproduzi-lo, o comportamento esperado e o comportamento observado. Se possível, inclua capturas de tela ou logs de erro.
+- **Sugestões de Funcionalidades:** Explique a funcionalidade proposta, o problema que ela resolve e como ela se encaixa na visão geral do projeto.
+
+### Contribuindo com Código
+
+Se você deseja contribuir com código, siga este fluxo:
+
+1.  **Fork** o repositório.
+2.  **Clone** o seu fork para a sua máquina local.
+3.  Crie uma **branch** para a sua funcionalidade ou correção (`git checkout -b feature/minha-nova-feature` ou `bugfix/correcao-de-bug`).
+4.  Faça suas **alterações** e **testes**.
+5.  **Commit** suas alterações com mensagens claras e descritivas (`git commit -m "feat: Adiciona nova funcionalidade X"` ou `fix: Corrige bug Y`).
+6.  **Push** suas alterações para o seu fork (`git push origin feature/minha-nova-feature`).
+7.  Abra um **Pull Request (PR)** para a branch `main` do repositório original.
+
+Agradecemos antecipadamente por suas contribuições!
 
 ## 9. Referências
 
