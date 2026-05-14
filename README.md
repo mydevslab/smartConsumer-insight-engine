@@ -11,8 +11,9 @@ Projeto desenvolvido para o Hackathon Elas+ Tech - Ada Tech, sob o tema **Consum
 - [6. Como Executar o Projeto](#6-como-executar-o-projeto)
 - [7. Integrantes do Esquadrão](#7-integrantes-do-esquadrão)
 - [8. Conclusão](#8-conclusão)
-- [9. Como Contribuir](#9-como-contribuir)
-- [Referências](#referências)
+- [9. Nossa Jornada no Hackathon](#9-nossa-jornada-no-hackathon)
+- [10. Como Contribuir](#10-como-contribuir)
+- [11. Referências](#11-referências)
 
 ---
 
@@ -149,7 +150,15 @@ O projeto utiliza o dataset do **Kaggle**. Caso o download automático não seja
 
 O **SmartConsumer Insight Engine** é uma ferramenta poderosa para capacitar consumidores a entender e controlar seus hábitos de consumo. Através de uma abordagem baseada em dados, oferecemos insights acionáveis que podem transformar a saúde financeira dos usuários, promovendo um consumo mais consciente e inteligente.
 
-## 9. Como Contribuir
+## 9. Nossa Jornada no Hackathon
+
+O **SmartConsumer Insight Engine** foi desenvolvido no Hackathon Elas+ Tech, onde o Esquadrão 12 transformou dados em inteligência acionável para o consumo. Nossa jornada focou em um sistema de análise financeira baseado na **Tríplice Hélice da Inovação**, visando modernização de serviços e impacto social.
+
+Desde a identificação do problema de gastos excessivos em alimentação até a construção de uma arquitetura desacoplada com SQLite, Python e um modelo de Regressão Linear focado em **Explainability (XAI)**, cada etapa buscou entregar valor e transparência.
+
+Nossa apresentação nos posicionou entre os **10 melhores grupos** de 54, reafirmando que a ciência de dados, orientada a produto e impacto, é um diferencial. Para detalhes sobre nossa experiência, desafios e aprendizados, consulte: [Um pouco da nossa jornada](docs/um_pouco_da_nossa_jornada.md)
+
+## 10. Como Contribuir
 
 Agradecemos o seu interesse em contribuir com o SmartConsumer Insight Engine! Sua colaboração é muito valiosa para aprimorar este projeto. Abaixo estão algumas diretrizes para facilitar o processo de contribuição:
 
@@ -174,7 +183,7 @@ Se você deseja contribuir com código, siga este fluxo:
 
 Agradecemos antecipadamente por suas contribuições!
 
-## 9. Referências
+## 11. Referências
 
 Segue a lista de referências utilizadas para a construção do projeto:
 
